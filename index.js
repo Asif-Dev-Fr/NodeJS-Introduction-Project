@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 // Send information from the client to the server :
 app.use(express.json({limit: '1mb'}));
-// Client to server : post != Server to client : get
+// Data sont envoyés depuis le client au server (post)
 app.post('/api', (request, response) =>{
     console.log('Server side :')
     console.log(request.body);
