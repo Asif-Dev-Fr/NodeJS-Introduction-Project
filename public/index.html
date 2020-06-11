@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeJS Test</title>
+</head>
+
+<body>
+  <h1>NodeJS Test</h1>
+  <button id='search'>Search</button>
+  <div>
+    <p>latitude : <span id="latitude"></span>&deg;</p>
+    <p>longitude : <span id="longitude"></span>°</p>
+  </div>
+
+  <script>
+    if ('geolocation' in navigator) {
+      console.log('Client side :  geolocation available');
+      // position peut être changer par ce qu'on veut (value)
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        console.log(position);
+        console.log(`Client side : Latitude est de ${position.coords.latitude} et la longitude est de ${position.coords.longitude}`);
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const button = document.getElementById('search');
+        button.addEventListener('click', function () {
+          document.getElementById('latitude').textContent = lat;
+          document.getElementById('longitude').textContent = lon;
+        });
+
+        // envoyer les datas depuis le client au server : 
+        const data = { lat, lon };
+        // Supplying request option : https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        }
+
+        const response = await fetch('/api', options);
+        const json_data = await response.json();
+        console.log(json_data);
+
+
+
+      })
+    } else {
+      console.log('geolocation not available');
+    }
+  </script>
+</body>
+
+</html>
