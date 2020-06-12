@@ -13,7 +13,10 @@
   <div>
     <p>latitude : <span id="latitude"></span>&deg;</p>
     <p>longitude : <span id="longitude"></span>°</p>
+    <p>timestamp : <span id="timestamp"></span></p>
   </div>
+
+  <button id='sendToServer'>Send data to the server</button>
 
   <script>
     if ('geolocation' in navigator) {
@@ -24,14 +27,16 @@
         console.log(`Client side : Latitude est de ${position.coords.latitude} et la longitude est de ${position.coords.longitude}`);
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
+        const timestamp = new Date(position.timestamp);
         const button = document.getElementById('search');
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
           document.getElementById('latitude').textContent = lat;
           document.getElementById('longitude').textContent = lon;
+          document.getElementById('timestamp').textContent = timestamp;
         });
 
         // envoyer les datas depuis le client au server : 
-        const data = { lat, lon };
+        const data = { lat, lon, timestamp };
         // Supplying request option : https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
         const options = {
           method: 'POST',
@@ -41,9 +46,15 @@
           body: JSON.stringify(data),
         }
 
-        const response = await fetch('/api', options);
-        const json_data = await response.json();
-        console.log(json_data);
+        const buttonSendToServer = document.getElementById('sendToServer');
+        buttonSendToServer.addEventListener('click', async () => {
+          const response = await fetch('/api', options);
+          const json_data = await response.json();
+          console.log(json_data);
+
+        })
+
+        
 
 
 
