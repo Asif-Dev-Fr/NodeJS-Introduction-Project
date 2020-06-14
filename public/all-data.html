@@ -29,7 +29,7 @@
             const data = await response.json();
             // console.log(data);
 
-            for (value of data) {
+            data.map((value) => {
                 console.log(value);
                 const row = document.createElement('tr');
                 const tdName = document.createElement('td');
@@ -51,7 +51,7 @@
                 tdTimestamp.textContent = new Date(value.timestamp).toLocaleString();
 
                 row.append(tdName, tdLat, tdLon, tdTimestamp);
-            }; 
+            });  
         }
         getData();
     </script>
