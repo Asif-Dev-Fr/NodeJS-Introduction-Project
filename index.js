@@ -1,6 +1,7 @@
 const express = require('express');
 // BDD : 
 const Datastore = require('nedb');
+const { request, response } = require('express');
 
 const app = express();
 app.listen(3000, () => console.log('Listening at port 3000'));
@@ -15,14 +16,29 @@ app.use(express.json({limit: '1mb'}));
 // Data sont envoyés depuis le client au server (post)
 app.post('/api', (request, response) =>{
     console.log('Server side :')
-    // console.log(request.body);
+    console.log(request.body);
     // insertion en bdd : 
     database.insert(request.body);
-    console.log(database);
+    // console.log(database);
     response.json({
         statut: 'success',
         latitude: request.body.lat,
         longitude: request.body.lon,
-        timestamp: request.body.timestamp
+        timestamp: request.body.timestamp,
+        name: request.body.name
     });
 });
+
+// Display the information on all-data.html :
+app.get('/getAllData', (request, response) => {
+    database.find({}, (err, data) => {
+        if (err) {
+            console.log(err);
+            response.end();
+            return
+        } else {
+            response.json(data);
+        }
+    });
+});
+
