@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header nav {
+    background: black;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    list-style: none;
+    margin-left: 10px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #FFF;
+
+}
+
+main {
+    width: 80%;
+    margin: 25px auto;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+}

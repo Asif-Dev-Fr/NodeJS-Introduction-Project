@@ -4,87 +4,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- P5.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
+
   <title>NodeJS Test</title>
 </head>
 
 <body>
-  <h1>NodeJS Test</h1>
-  <div>
-    <form id="form"></form>
-    <p>
-      <label>Name : </label><input type="text" name="text" id="name" value="">
-    </p>
-    <p>latitude : <span id="latitude"></span>&deg;</p>
-    <p>longitude : <span id="longitude"></span>°</p>
-    <p>timestamp : <span id="timestamp"></span></p>
+  <header>
+    <nav>
+        <ul>
+            <li><a href="/">Homepage</a></li>
+            <li><a href="./logs/all-data.html">Result</a></li>
+        </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>NodeJS Test</h1>
+    <div>
+      <form id="form"></form>
+      <p>
+        <label>Name :
+          <input type="text" name="text" id="name" value="">
+        </label>
+      </p>
+      <p>latitude : <span id="latitude"></span>&deg;</p>
+      <p>longitude : <span id="longitude"></span>°</p>
+      <p>timestamp : <span id="timestamp"></span></p>
 
-    <button id='search'>Send coordinates to the client</button>
-    <button id='sendToServer' type="submit">Send data to the server</button>
-    </form>
-  </div>
-
-
-  <script>
-    if ('geolocation' in navigator) {
-      console.log('Client side :  geolocation available');
-      // position peut être changer par ce qu'on veut (value)
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
-        console.log(`Client side : Latitude est de ${position.coords.latitude} et la longitude est de ${position.coords.longitude}`);
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        const timestamp = new Date(position.timestamp);
-
-        const buttonSendToServer = document.getElementById('sendToServer');
-        buttonSendToServer.addEventListener('click', async () => {
-
-          // Champs name : 
-          const nameWritten = document.getElementById('name');
-          const name = nameWritten.value;
-          // console.log(name);
-
-          // envoyer les datas depuis le client au server : 
-          const data = { lat, lon, timestamp, name };
-          // Supplying request option : https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-          const options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-          }
+      <button id='search'>Send coordinates to the client</button>
+      <button id='sendToServer' type="submit">Send data to the server</button>
+      </form>
+    </div>
+  </main>
 
 
-          // fonction fetch() :
-          const response = await fetch('/api', options);
-          const json_data = await response.json();
-          console.log(json_data);
-
-        })
-
-      
-
-
-        // Champ lat, long, timestamp :
-        const button = document.getElementById('search');
-        button.addEventListener('click', function () {
-          document.getElementById('latitude').textContent = lat;
-          document.getElementById('longitude').textContent = lon;
-          document.getElementById('timestamp').textContent = timestamp;
-        });
-
-
-
-
-
-
-
-
-      })
-    } else {
-      console.log('geolocation not available');
-    }
-  </script>
+  <script src='./main.js'></script>
 </body>
 
 </html>
