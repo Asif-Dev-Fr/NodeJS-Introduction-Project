@@ -13,7 +13,7 @@ setup = () => {
 if ('geolocation' in navigator) {
     console.log('Client side :  geolocation available');
     // position peut être changer par ce qu'on veut (value)
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
         console.log(position);
         console.log(`Client side : Latitude est de ${position.coords.latitude} et la longitude est de ${position.coords.longitude}`);
         const lat = position.coords.latitude;

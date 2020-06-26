@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <title>Weather here</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../">Homepage</a></li>
+                <li><a href="./all-data.html">Result</a></li>
+                <li><a href="./weather.html">Weather</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>
+            <span id="weatherCity"></span> :
+            <span id="weatherDegrees"></span>°
+        </h2>
+        <label>
+            Trouver la température d'une autre ville 
+            <input type="text" id="findCity" />
+        </label>
+        <button id="searchButton">Trouver</button>
+        <h2 id='hiddenData'>
+            <span id='searchedCity'></span> :
+            <span id='searchedDegree'></span>°
+        </h2>
+    </main>
+
+    <script src="./weather.js"></script>
+</body>
+
+</html>

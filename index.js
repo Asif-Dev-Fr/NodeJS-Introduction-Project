@@ -3,6 +3,12 @@ const express = require('express');
 const Datastore = require('nedb');
 const { request, response } = require('express');
 
+// Dotenv : 
+require('dotenv').config();
+
+// fetch : 
+const fetch = require('node-fetch');
+
 const app = express();
 app.listen(3000, () => console.log('Listening at port 3000'));
 app.use(express.static('public'));
@@ -42,3 +48,42 @@ app.get('/getAllData', (request, response) => {
     });
 });
 
+// Retrieve data from API on the server site : 
+    // Add API KEY with lat and lon to find the weather here : 
+    app.get('/weather/:latlon', async (request, response) => {
+        // console.log(request); 
+
+        const latlon = request.params.latlon.split(',');
+        // console.log(latlon);
+        const lat = latlon[0];
+        const lon = latlon[1];
+
+        const api = {
+            key: process.env.API_KEY,
+            base: process.env.BASE
+        }
+        const fetch_response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&appid=${api.key}`);
+        const json_data = await fetch_response.json();
+        response.json(json_data);
+
+    });
+        
+
+    app.get('/city/:query', async (request, response) => {
+
+        const query = request.params.query;
+
+        const api = {
+            key: process.env.API_KEY,
+            base: process.env.BASE
+        }
+
+        const api_url = `${api.base}weather?q=${query}&units=metric&APPID=${api.key}`;
+        const fetch_response = await fetch(api_url);
+        const fetched_data = await fetch_response.json();
+        response.json(fetched_data);
+
+    });
+
+
+            
