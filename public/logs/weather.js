@@ -8,13 +8,15 @@ if ('geolocation' in navigator) {
         const api_url = `/weather/${lat},${lon}`;
         const response = await fetch(api_url);
         const data_json = await response.json();
-        // console.log(data_json);
+        console.log(data_json);
 
         const weather = document.getElementById('weatherDegrees');
         weather.textContent = (Math.round(data_json.main.temp) / 10);
 
         const city = document.getElementById('weatherCity');
         city.textContent = data_json.name;
+
+        document.getElementById('weatherDescription').textContent = data_json.weather[0].main
 
     } 
     )}
@@ -29,11 +31,17 @@ const search = async (event) => {
     const api_url = `/city/${query}`;
     const response = await fetch(api_url);
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
 
     document.getElementById('hiddenData').style.display = "block";
-    document.getElementById('searchedCity').textContent = data.name;
-    document.getElementById('searchedDegree').textContent = data.main.temp;
+    if (typeof data.main != "undefined") {
+        document.getElementById('searchedCity').textContent = data.name;
+        document.getElementById('searchedDegree').textContent = data.main.temp;
+        document.getElementById('searchedDescription').textContent = data.weather[0].main;
+    }
+    else { 
+        document.getElementById('searchedCity').textContent = 'Entrer le nom d\'une ville';
+    }
 }
 
 
