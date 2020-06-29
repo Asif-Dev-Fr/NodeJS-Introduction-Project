@@ -47,13 +47,15 @@ const search = async (event) => {
     console.log(data);
 
     document.getElementById('hiddenData').style.display = "block";
-    if (typeof data.main != "undefined") {
-        document.getElementById('searchedCity').textContent = data.name;
-        document.getElementById('searchedDegree').textContent = data.main.temp;
-        document.getElementById('searchedDescription').textContent = data.weather[0].main;
+    if (typeof data.weatherQuery.main != "undefined") {
+        document.getElementById('searchedCity').textContent = `${data.weatherQuery.name} : `;
+        document.getElementById('searchedDegree').textContent = `${data.weatherQuery.main.temp}°`;
+        document.getElementById('searchedDescription').textContent = `(${data.weatherQuery.weather[0].main})`;
     }
     else { 
-        document.getElementById('searchedCity').textContent = 'Entrer le nom d\'une ville';
+        document.getElementById('searchedCity').textContent = ' Pas de data ! Entrer le nom d\'une autre ville !';
+        document.getElementById('searchedDegree').style.display = "none";
+        document.getElementById('searchedDescription').style.display = "none";
     }
 }
 

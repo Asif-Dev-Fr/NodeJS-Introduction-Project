@@ -90,11 +90,22 @@ app.get('/getAllData', (request, response) => {
             base: process.env.BASE
         }
 
-        const api_url = `${api.base}weather?q=${query}&units=metric&APPID=${api.key}`;
-        const fetch_response = await fetch(api_url);
-        const fetched_data = await fetch_response.json();
-        response.json(fetched_data);
+        // Weather :
+        const weather_api = `${api.base}weather?q=${query}&units=metric&APPID=${api.key}`;
+        const weather_response = await fetch(weather_api);
+        const weather_data = await weather_response.json();
 
+
+        // Air Quality :
+        const airQuality_api = `https://api.openaq.org/v1/latest?city=${query}`;
+        const airQuality_response = await fetch(airQuality_api);
+        const airQuality_data = await airQuality_response.json();
+
+        const data = {
+            weatherQuery : weather_data,
+            airQualityQuery : airQuality_data
+        }
+        response.json(data)
     });
 
 
