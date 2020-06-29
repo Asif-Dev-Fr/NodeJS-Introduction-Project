@@ -19,21 +19,26 @@
         </nav>
     </header>
     <main>
-        <h2>
+        <div class="weather">
             <span id="weatherCity"></span> :
             <span id="weatherDegrees"></span>&deg;
             (<span id='weatherDescription'></span>)
-        </h2>
+        </div>
+        <div id="airQuality">
+            <span>The air quality is : </span>
+            <span id="aqValue"></span>
+            <span id="aqUnit"></span>
+        </div>
         <label>
             Trouver la température d'une autre ville 
             <input type="text" id="findCity" />
         </label>
         <button id="searchButton">Trouver</button>
-        <h2 id='hiddenData'>
+        <div id='hiddenData'>
             <span id='searchedCity'></span> :
             <span id='searchedDegree'></span>&deg;
             (<span id='searchedDescription'></span>)
-        </h2>
+        </div>
     </main>
 
     <script src="./weather.js"></script>

@@ -35,6 +35,13 @@ th, td {
     padding: 6px;
 }
 
+.weather, #airQuality {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 #hiddenData {
+    font-size: 24px;
+    font-weight: bold;
     display: none;
 }

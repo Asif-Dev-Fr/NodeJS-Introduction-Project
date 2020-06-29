@@ -10,14 +10,27 @@ if ('geolocation' in navigator) {
         const data_json = await response.json();
         console.log(data_json);
 
+        // Weather
         const weather = document.getElementById('weatherDegrees');
-        weather.textContent = (Math.round(data_json.main.temp) / 10);
+        weather.textContent = (Math.round(data_json.weatherData.main.temp) / 10);
 
         const city = document.getElementById('weatherCity');
-        city.textContent = data_json.name;
+        city.textContent = data_json.weatherData.name;
 
-        document.getElementById('weatherDescription').textContent = data_json.weather[0].main
+        document.getElementById('weatherDescription').textContent = data_json.weatherData.weather[0].main;
 
+        // Air Quality :
+
+        if(data_json.airQualityData.results.length != 0) {
+            const aqValue = document.getElementById('aqValue');
+            aqValue.textContent = data_json.airQualityData.results[0].measurements[0].value;
+
+            const aqUnit = document.getElementById('aqUnit');
+            aqUnit.textContent = data_json.airQualityData.results[0].measurements[0].unit;
+
+        } else {
+            document.getElementById('airQuality').style.display = "none"
+        }
     } 
     )}
 else {

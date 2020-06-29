@@ -62,9 +62,21 @@ app.get('/getAllData', (request, response) => {
             key: process.env.API_KEY,
             base: process.env.BASE
         }
+        // Weather API
         const fetch_response = await fetch(`${api.base}weather?lat=${lat}&lon=${lon}&appid=${api.key}`);
         const json_data = await fetch_response.json();
-        response.json(json_data);
+
+        // Air Quality API : 
+        const aq_response = await fetch(`https://api.openaq.org/v1/latest?coordinates=${lat},${lon}`);
+        const aq_data = await aq_response.json();
+
+        // Envoie des datas des 2 API :
+        const allData = {
+            weatherData : json_data,
+            airQualityData : aq_data
+        }
+
+        response.json(allData);
 
     });
         
