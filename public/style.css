@@ -45,3 +45,11 @@ th, td {
     font-weight: bold;
     display: none;
 }
+
+section {
+    margin: 20px 0;
+}
+
+section label {
+    font-size: 20px;
+}

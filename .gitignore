@@ -3,5 +3,6 @@
 /aide
 
 database.db
+newDatabase.db
 
 .env
