@@ -125,8 +125,21 @@ app.post('/database', (request, response) =>{
         latitude: request.body.lat,
         longitude: request.body.lon,
         weather: request.body.weather,
+        sky: request.body.sky,
         airQ: request.body.airQ,
         
     });
 });
 
+// Display the information on weather-entries.html :
+app.get('/getWeatherEntries', (request, response) => {
+    newDatabase.find({}, (err, data) => {
+        if (err) {
+            console.log(err);
+            response.end();
+            return
+        } else {
+            response.json(data);
+        }
+    });
+});

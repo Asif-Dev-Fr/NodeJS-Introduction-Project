@@ -86,13 +86,18 @@ const search = async () => {
     const lon = data.weatherQuery.coord.lon;
     const weather = data.weatherQuery.main;
     const city = data.weatherQuery.name;
-    const airQ = data.airQualityQuery.results[0].measurements[0];
+    const sky = data.weatherQuery.weather[0].main;
+
+    (data.airQualityQuery.results != 0) ?
+    airQ = data.airQualityQuery.results[0].measurements[0] : airQ = 'undefined'; 
+    
 
     const dataSendToDB = {
         city,
         lat,
         lon,
         weather,
+        sky,
         airQ,
     }
     
